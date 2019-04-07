@@ -75,19 +75,7 @@ def test(imgL,sparse,mask):
         output1 = torch.squeeze(pred1)
 
         return output1.data.cpu().numpy(),time_temp
-
-__imagenet_stats = {'mean': [0.485, 0.456, 0.406],
-                   'std': [0.229, 0.224, 0.225]}
-def scale_crop2(normalize=__imagenet_stats):
-    t_list = [
-        # transforms.RandomHorizontalFlip(),
-        transforms.ToTensor(),
-        transforms.Normalize(**normalize),
-    ]
-    #if scale_size != input_size:
-    #t_list = [transforms.Scale((960,540))] + t_list
-
-    return transforms.Compose(t_list)
+      
 def rmse(gt,img,ratio):
     dif = gt[np.where(gt>ratio)] - img[np.where(gt>ratio)]
     error = np.sqrt(np.mean(dif**2))
