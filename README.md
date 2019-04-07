@@ -21,7 +21,7 @@ python trainN.py --datapath (your surface normal folder)\
 ```
 python trainD.py --datapath (your KITTI dataset folder)\
                --epochs 20\
-               --batch_size 24\
+               --batch_size 6\
                --gpu_nums 3\
                --loadmodel (optional)\
                --savemodel (path for saving model)
@@ -30,7 +30,7 @@ python trainD.py --datapath (your KITTI dataset folder)\
 ```
 python train.py --datapath (your KITTI dataset folder)\
                --epochs 20\
-               --batch_size 24\
+               --batch_size 6\
                --gpu_nums 3\
                --loadmodel (optional)\
                --savemodel (path for saving model)
