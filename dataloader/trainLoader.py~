@@ -1,0 +1,77 @@
+import os
+import torch
+import torch.utils.data as data
+import torch
+import torchvision.transforms as transforms
+import random
+from PIL import Image, ImageOps
+import skimage
+import skimage.io
+import skimage.transform
+import preprocess
+import numpy as np
+import h5py
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+
+IMG_EXTENSIONS = [
+    '.jpg', '.JPG', '.jpeg', '.JPEG',
+    '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP',
+]
+
+
+def is_image_file(filename):
+    return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
+
+def default_loader(path):
+    return Image.open(path).convert("RGB")
+
+def input_loader(path,model,h,w):
+    if model == 'normal':
+        scan = np.fromfile(path, dtype=np.float32)
+        normals = scan.reshape((h,w,3))
+        return normals
+    else:
+        img = skimage.io.imread(path).astype(np.float32)
+        img = np.where(img > np.max(img) * 0.15, np.ones_like(img), np.zeros_like(img))
+        return img
+
+class myImageFloder(data.Dataset):
+    def __init__(self, left, right, input, training, model, loader=default_loader, inloader = input_loader):
+        self.left = left
+        self.right = right
+        self.input = input
+        self.loader = loader
+        self.inloader = inloader
+        self.training = training
+        self.mode = model
+    def __getitem__(self, index):
+        left = self.left[index]
+        right = self.right[index]
+        input = self.input[index]
+
+        left_img = self.loader(left)
+        right_img = self.loader(right)
+
+        w, h = left_img.size
+        input = self.inloader(input, self.mode, h, w)
+        th, tw = 256, 512
+
+        x1 = random.randint(0, w - tw)
+        y1 = random.randint(0, h - th)
+
+        left_img = left_img.crop((x1, y1, x1 + tw, y1 + th))
+        right_img = right_img.crop((x1, y1, x1 + tw, y1 + th))
+        data_in = np.ascontiguousarray(input, dtype=np.float32)
+        data_in = data_in[y1:y1 + th, x1:x1 + tw]
+
+        processed = preprocess.get_transform(augment=False)
+        left_img = processed(left_img)
+        right_img = processed(right_img)
+        return left_img, right_img, data_in
+
+    def __len__(self):
+        return len(self.left)
+
+
+if __name__ == '__main__':
+    print("")

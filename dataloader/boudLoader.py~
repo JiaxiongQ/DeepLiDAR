@@ -1,0 +1,68 @@
+import torch.utils.data as data
+
+from PIL import Image
+import os
+import os.path
+import numpy as np
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+parent_path  = os.path.dirname(ROOT_DIR)
+IMG_EXTENSIONS = [
+    '.jpg', '.JPG', '.jpeg', '.JPEG',
+    '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP',
+]
+
+
+def is_image_file(filename):
+    return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
+
+
+def dataloader(filepath):
+
+    total_fold = ['/Town04']
+    imagesl = []
+    imagesr = []
+    bounds = []
+    temp = filepath
+    for total in total_fold:
+        filepath = temp + total
+        left_fold = '/RGBLeft'
+        right_fold = '/RGBright'
+        boud_fold = '/Boundary'
+
+        seqs = [os.path.join(filepath,seq) for seq in os.listdir(filepath) if seq.find('SEQ') > -1]
+
+        for seq in seqs:
+            imgsl = seq + left_fold
+            imagel = [os.path.join(imgsl,img) for img in os.listdir(imgsl)]
+            imagel.sort()
+            imagesl = np.append(imagesl, imagel)
+            imgsr = seq + right_fold
+            imager = [os.path.join(imgsr, img) for img in os.listdir(imgsr)]
+            imager.sort()
+            imagesr = np.append(imagesr, imager)
+            bous = seq + boud_fold
+            bound = [os.path.join(bous,boud) for boud in os.listdir(bous)]
+            bound.sort()
+            bounds = np.append(bounds, bound)
+
+    left_train = imagesl
+    right_train = imagesr
+    boud_train = bounds
+    return left_train, right_train, boud_train
+
+def file2txt(file1, file2, file3, filename):
+
+    f_out = open(filename + '.txt', 'w')
+    for i in range(len(file3)):
+        line = str(file1[i]) + ' ' + str(file2[i])+ ' ' + str(file3[i]) + '\n'
+        f_out.write(line)
+    f_out.close()
+
+    print("done!!!")
+
+if __name__ == '__main__':
+    datapath = os.path.join(parent_path, 'data')
+    left,right,bound = dataloader(datapath)
+    print(left[0],right[0],bound[0])
+    print(len(left),len(right),len(bound))
+    file2txt(left, right, bound, "check")
