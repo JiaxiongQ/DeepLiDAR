@@ -17,7 +17,7 @@ python trainN.py --datapath (your surface normal folder)\
                --loadmodel (optional)\
                --savemodel (path for saving model)
 ```
-3. Use the following command to train the depth part I of our net on KITTI and [1](after load the parameters of [2]).
+3. Use the following command to train the depth part I of our net on KITTI(after load the parameters of [2]).
 ```
 python trainD.py --datapath (your KITTI dataset folder)\
                --epochs 20\
@@ -26,7 +26,7 @@ python trainD.py --datapath (your KITTI dataset folder)\
                --loadmodel (optional)\
                --savemodel (path for saving model)
 ```
-3. Use the following command to train the depth part II of our net on KITTI and [1](after load the parameters of [2,3]).
+3. Use the following command to train the depth part II of our net on KITTI(after load the parameters of [2,3]).
 ```
 python train.py --datapath (your KITTI dataset folder)\
                --epochs 20\
