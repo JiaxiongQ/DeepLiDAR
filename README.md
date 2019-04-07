@@ -8,9 +8,10 @@ In this work, we propose an end-to-end deep learning system to produce dense dep
 - [PyTorch(0.4.0+)](http://pytorch.org)
 - torchvision 0.2.0 (higher version may cause issues)
 - [KITTI Depth Completion](http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_completion)
-## Trainings
-
-## Testing
+## Train
+1. Get the surface normal of Lidar dataset by the code [surface_normal](https://github.com/crazyzxd).
+2. Use the following command to train the surface normal part of our net on [1].
+## Evaluation
 
 ## Citation 
 If you use our code or method in your work, please consider citing the following:
