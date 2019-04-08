@@ -38,7 +38,7 @@ python train.py --datapath (your KITTI dataset folder)\
 ## Evaluation
 Use the following command to evaluate the trained on KITTI test data(after fill folder names).
 ```
-python test.py --loadmodel
+python test.py --loadmodel (your trained model)
 ```
 ## Citation 
 If you use our code or method in your work, please consider citing the following:
