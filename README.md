@@ -3,7 +3,7 @@ This repository contains the code (in PyTorch) for "[DeepLiDAR: Deep Surface Nor
 from Sparse LiDAR Data and Single Color Image](https://arxiv.org/pdf/1812.00488.pdf)" paper (CVPR 2019) by [Jiaxiong Qiu](https://jiaxiongq.github.io/), [Zhaopeng Cui](https://zhpcui.github.io/), [Yinda Zhang](https://www.zhangyinda.com/), [Xingdi Zhang](https://github.com/crazyzxd), [Shuaicheng Liu](http://www.liushuaicheng.org/), Bing Zeng and [Marc Pollefeys](https://www.inf.ethz.ch/personal/marc.pollefeys/index.html).
 ## Introduction
 In this work, we propose an end-to-end deep learning system to produce dense depth from sparse LiDAR data and a color image taken from outdoor on-road scenes leveraging surface normal as the intermediate representation.
-![image](http://github.com/JiaxiongQ/Need2Adjust/pipline.PNG)
+![image](https://github.com/JiaxiongQ/Need2Adjust/blob/master/pipline.PNG)
 ## Requirements
 - [Python2.7](https://www.python.org/downloads/)
 - [PyTorch(0.4.0+)](http://pytorch.org)
