@@ -11,14 +11,14 @@ In this work, we propose an end-to-end deep learning system to produce dense dep
 - [KITTI Depth Completion](http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_completion)
 ## Train
 1. Get the surface normal of Lidar dataset by the code in [surface_normal](https://github.com/crazyzxd).
-2. Use the following command to train the surface normal part of our net on [1].
+2. Use the following command to train the part I of our net on [1].
 ```
 python trainN.py --datapath (your surface normal folder)\
                --epochs 20\
                --loadmodel (optional)\
                --savemodel (path for saving model)
 ```
-3. Use the following command to train the depth part I of our net on KITTI(after load the parameters of [2]).
+3. Use the following command to train the part II of our net on KITTI(after load the parameters of [2]).
 ```
 python trainD.py --datapath (your KITTI dataset folder)\
                --epochs 20\
@@ -27,7 +27,7 @@ python trainD.py --datapath (your KITTI dataset folder)\
                --loadmodel (optional)\
                --savemodel (path for saving model)
 ```
-3. Use the following command to train the depth part II of our net on KITTI(after load the parameters of [2,3]).
+3. Use the following command to train the part III of our net on KITTI(after load the parameters of [2,3]).
 ```
 python train.py --datapath (your KITTI dataset folder)\
                --epochs 20\
