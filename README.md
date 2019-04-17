@@ -4,7 +4,6 @@ from Sparse LiDAR Data and Single Color Image](https://arxiv.org/pdf/1812.00488.
 ## Introduction
 In this work, we propose an end-to-end deep learning system to produce dense depth from sparse LiDAR data and a color image taken from outdoor on-road scenes leveraging surface normal as the intermediate representation.
 
-<img align="center" src="https://user-images.githubusercontent.com/11732099/43501836-1d32897c-958a-11e8-8083-ad41ec26be17.jpg">
 ## Requirements
 - [Python2.7](https://www.python.org/downloads/)
 - [PyTorch(0.4.0+)](http://pytorch.org)
