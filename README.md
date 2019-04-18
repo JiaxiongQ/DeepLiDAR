@@ -37,7 +37,7 @@ python train.py --datapath (your KITTI dataset folder)\
                --savemodel (path for saving model)
 ```
 ## Evaluation
-Use the following command to evaluate the trained on KITTI test data(after fill folder names).
+Use the following command to evaluate the trained on your own data(after fill folder names).
 ```
 python test.py --loadmodel (your trained model)
 ```
