@@ -42,13 +42,13 @@ Use the following command to evaluate the trained on KITTI test data(after fill 
 python test.py --loadmodel (your trained model)
 ```
 ## Citation 
-If you use our code or method in your work, please consider citing the following:
+If you use our code or method in your work, please cite the following:
 ```
 @article{qiu2018deeplidar,
   title={DeepLiDAR: Deep Surface Normal Guided Depth Prediction for Outdoor Scene from Sparse LiDAR Data and Single Color Image},
   author={Qiu, Jiaxiong and Cui, Zhaopeng and Zhang, Yinda and Zhang, Xingdi and Liu, Shuaicheng and Zeng, Bing and Pollefeys, Marc},
-  journal={arXiv preprint arXiv:1812.00488},
-  year={2018}
+  booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
+  year={2019}
 }
 ```
 Please direct any questions to [Jiaxiong Qiu](https://jiaxiongq.github.io/) at qiujiaxiong727@gmail.com
