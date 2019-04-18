@@ -10,7 +10,7 @@ In this work, we propose an end-to-end deep learning system to produce dense dep
 - torchvision 0.2.0 (higher version may cause issues)
 - [KITTI Depth Completion](http://www.cvlibs.net/datasets/kitti/eval_depth.php?benchmark=depth_completion)
 ### Pretrained Model
-※NOTE: The pretrained model were saved in .tar; however, you don't need to untar it. Use torch.load() to load it.
+※NOTE: The pretrained model were saved in '.tar'; however, you don't need to untar it. Use torch.load() to load it.
 
 [Google Drive](https://drive.google.com/file/d/1eaOCtl_CGzqqqJDbVawsdniND255ZaP8/view?usp=sharing)
 ## Train
