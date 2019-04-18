@@ -44,7 +44,7 @@ python test.py --loadmodel (your trained model)
 ## Citation 
 If you use our code or method in your work, please cite the following:
 ```
-@article{qiu2018deeplidar,
+@inproceedings{qiu2018deeplidar,
   title={DeepLiDAR: Deep Surface Normal Guided Depth Prediction for Outdoor Scene from Sparse LiDAR Data and Single Color Image},
   author={Qiu, Jiaxiong and Cui, Zhaopeng and Zhang, Yinda and Zhang, Xingdi and Liu, Shuaicheng and Zeng, Bing and Pollefeys, Marc},
   booktitle={Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition},
