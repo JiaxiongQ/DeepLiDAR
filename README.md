@@ -14,32 +14,8 @@ In this work, we propose an end-to-end deep learning system to produce dense dep
 
 [Google Drive](https://drive.google.com/file/d/1eaOCtl_CGzqqqJDbVawsdniND255ZaP8/view?usp=sharing)
 ## Train
-1. Get the surface normal of Lidar dataset by the code in the folder named [surface_normal](https://github.com/crazyzxd).
-2. Use the following command to train the part I of our net on [1].
-```
-python trainN.py --datapath (your surface normal folder)\
-               --epochs 20\
-               --loadmodel (optional)\
-               --savemodel (path for saving model)
-```
-3. Use the following command to train the part II of our net on KITTI(after load the parameters of [2]).
-```
-python trainD.py --datapath (your KITTI dataset folder)\
-               --epochs 20\
-               --batch_size 6\
-               --gpu_nums 3\
-               --loadmodel (optional)\
-               --savemodel (path for saving model)
-```
-3. Use the following command to train the part III of our net on KITTI(after load the parameters of [2,3]).
-```
-python train.py --datapath (your KITTI dataset folder)\
-               --epochs 20\
-               --batch_size 6\
-               --gpu_nums 3\
-               --loadmodel (optional)\
-               --savemodel (path for saving model)
-```
+1. Get the surface normal of Lidar dataset by the code in the folder named ['surface_normal'](https://github.com/crazyzxd).
+2. Use the training strategy in the folder named 'trainings'.
 ## Evaluation
 Use the following command to evaluate the trained on your own data(after fill folder names).
 ```
