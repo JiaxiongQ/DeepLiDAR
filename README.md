@@ -17,7 +17,14 @@ In this work, we propose an end-to-end deep learning system to produce dense dep
 1. Get the surface normal of Lidar dataset by the code in the folder named ['surface_normal'](https://github.com/crazyzxd).
 2. Use the training strategy in the folder named 'trainings'.
 ## Evaluation
-Use the following command to evaluate the trained on your own data(after fill folder names).
+1. Fill the names of the folders in 'test.py':
+```
+'gt_fold': the location of your groundtruth folder;
+'left_fold': the location of your RGB image folder;
+'lidar2_raw': the location of your Sparse(LiDAR) depth folder.
+```
+ 
+2. Use the following command to evaluate the trained on your own data.
 ```
 python test.py --loadmodel (your trained model)
 ```
