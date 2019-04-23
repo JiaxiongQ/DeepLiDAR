@@ -1,4 +1,6 @@
 # Training strategy
+0. Prepare your dataset by modify the names of related folders in codes of the folder named 'dataloader'. your dataset should include RGB images, surface normal maps and sparse(LiDAR) depth maps.
+
 1. Use the following command to train the part I of our net on [1].
 ```
 python trainN.py --datapath (your surface normal folder)\
