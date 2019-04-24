@@ -167,7 +167,7 @@ def train(inputl,gt1,sparse,mask,params):
         predC = outC[:, 0, :, :]
         predN = outN[:, 0, :, :]
         maskC = outC[:, 1, :, :]
-        maskN = outC[:, 1, :, :]
+        maskN = outN[:, 1, :, :]
         tempMask[:, 0, :, :] = maskC
         tempMask[:, 1, :, :] = maskN
         predMask = F.softmax(tempMask)
