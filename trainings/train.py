@@ -215,7 +215,7 @@ def adjust_learning_rate(optimizer, epoch):
         learning_rate = 0.0000625
     if epoch > 25 and epoch <= 30:
         learning_rate = 0.00003125
-    if epoch > 30and epoch <= 35:
+    if epoch > 30 and epoch <= 35:
         learning_rate = 0.000015625
     if epoch > 35 and epoch <= 40:
         learning_rate = 0.00001
