@@ -12,7 +12,7 @@ from torch.autograd import Variable
 import torch.nn.functional as F
 import time
 from dataloader import nomalLoader as lsn
-from dataloader import trainLoader as DA
+from dataloader import trainLoaderN as DA
 from submodels import *
 
 
