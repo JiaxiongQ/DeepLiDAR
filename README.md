@@ -24,7 +24,7 @@ You could ignore the folders named 'lidar_m', 'normal_s', 'RGBright' and 'Bounda
 
 [Download Link](https://drive.google.com/file/d/1eaOCtl_CGzqqqJDbVawsdniND255ZaP8/view?usp=sharing)
 ## Train
-1. Get the surface normal of Lidar dataset by run the code in the folder named ['surface_normal'](https://github.com/crazyzxd).
+1. Get the surface normal of Lidar dataset by running the code in the project named ['surface_normal'](https://github.com/crazyzxd).
 2. Use the training strategy in the folder named 'trainings'.
 ## Evaluation
 1. Fill the names of the folders in 'test.py':
