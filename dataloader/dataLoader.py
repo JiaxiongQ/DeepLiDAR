@@ -1,72 +1,75 @@
+from __future__ import print_function
+
 import os
-import os.path
-import numpy as np
+from os.path import join, exists
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-parent_path  = os.path.dirname(ROOT_DIR)
-IMG_EXTENSIONS = [
-    '.jpg', '.JPG', '.jpeg', '.JPEG',
-    '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP',
-]
-def is_image_file(filename):
-    return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
 
-def dataloader(filepath):
+def dataloader(data_dir, separate_raw_dir=False):
     images = []
     lidars = []
-    depths = []
+    depths_gt = []
+    normals_gt = []
 
-    temp = filepath
-    filepathl = temp + 'data_depth_velodyne/train'
-    filepathd = temp + 'data_depth_annotated/train'
-    filepathgt = temp + 'gt/out/train'
+    if separate_raw_dir:
+        imgs_root = join(data_dir, 'raw')
+    sparse_depth_root = join(data_dir, 'data_depth_velodyne/train')
+    depth_gt_root = join(data_dir, 'data_depth_annotated/train')
+    normals_gt_root = join(data_dir, 'normals_gt/train')
 
-    seqs = [seq for seq in os.listdir(filepathl) if seq.find('sync') > -1]
-    left_fold = '/image_02/data'
-    right_fold = '/image_03/data'
-    lidar_foldl = '/proj_depth/velodyne_raw/image_02'
-    lidar_foldr = '/proj_depth/velodyne_raw/image_03'
-    depth_foldl = '/proj_depth/groundtruth/image_02'
-    depth_foldr = '/proj_depth/groundtruth/image_03'
+    seqs = sorted(seq for seq in os.listdir(sparse_depth_root) if seq.endswith('_sync'))
 
     for seq in seqs:
-        temp = os.path.join(filepathgt, seq)
+        date = seq.split('_drive')[0]
+        for cam_dir in ('image_02', 'image_03'):
+            if separate_raw_dir:
+                imgs_path = join(imgs_root, date, seq, cam_dir, 'data')
+            else:
+                imgs_path = join(sparse_depth_root, seq, cam_dir, 'data')
+            lidars_path = join(sparse_depth_root, seq, 'proj_depth/velodyne_raw', cam_dir)
+            depth_gt_path = join(depth_gt_root, seq, 'proj_depth/groundtruth', cam_dir)
+            normals_gt_path = join(normals_gt_root, seq, cam_dir)
 
-        imgsl = os.path.join(filepathl, seq) + left_fold
-        imagel = [os.path.join(imgsl, img) for img in os.listdir(temp)]
-        imagel.sort()
-        images = np.append(images, imagel)
-        imgsr = os.path.join(filepathl, seq) + right_fold
-        imager = [os.path.join(imgsr, img) for img in os.listdir(temp)]
-        imager.sort()
-        images = np.append(images, imager)
+            all_paths_exist = True
+            paths = [imgs_path, lidars_path, depth_gt_path, normals_gt_path]
+            for path in paths:
+                if not exists(path):
+                    print("Warning: missing data dir", path)
+                    all_paths_exist = False
+            if not all_paths_exist:
+                continue
 
-        lids2l = os.path.join(filepathl, seq) + lidar_foldl
-        lidar2l = [os.path.join(lids2l, lid) for lid in os.listdir(temp)]
-        lidar2l.sort()
-        lidars = np.append(lidars, lidar2l)
-        lids2r = os.path.join(filepathl, seq) + lidar_foldr
-        lidar2r = [os.path.join(lids2r, lid) for lid in os.listdir(temp)]
-        lidar2r.sort()
-        lidars = np.append(lidars, lidar2r)
+            img_files = set(os.listdir(imgs_path))
+            lidar_files = set(os.listdir(lidars_path))
+            depth_gt_files = set(os.listdir(depth_gt_path))
+            normals_gt_files = set(os.listdir(normals_gt_path))
 
-        depsl = os.path.join(filepathd, seq) + depth_foldl
-        depthl = [os.path.join(depsl, dep) for dep in os.listdir(temp)]
-        depthl.sort()
-        depths = np.append(depths, depthl)
-        depsr = os.path.join(filepathd, seq) + depth_foldr
-        depthr = [os.path.join(depsr, dep) for dep in os.listdir(temp)]
-        depthr.sort()
-        depths = np.append(depths, depthr)
+            img_depth_size_diff = 14 if seq == '2011_09_26_drive_0009_sync' else 10
+            file_counts = [len(img_files) - img_depth_size_diff, len(lidar_files), len(depth_gt_files),
+                           len(normals_gt_files)]
+            full_size = max(file_counts)
+            for path, file_count in zip(paths, file_counts):
+                num_missing = full_size - file_count
+                if num_missing != 0:
+                    print("Warning:", num_missing, "files missing in", path)
 
-    left_train = images
-    lidar2_train = lidars
-    depth_train = depths
+            common_files = sorted(
+                img_files &
+                lidar_files &
+                depth_gt_files &
+                normals_gt_files
+            )
+            images += [join(imgs_path, img) for img in common_files]
+            lidars += [join(lidars_path, lid) for lid in common_files]
+            depths_gt += [join(depth_gt_path, dep) for dep in common_files]
+            normals_gt += [join(normals_gt_path, norm) for norm in common_files]
 
-    return left_train,lidar2_train,depth_train
+    return images, lidars, normals_gt, depths_gt
 
 
 if __name__ == '__main__':
-    datapath = ''
+    import sys
+    from pprint import pprint
 
-
+    result = dataloader(sys.argv[1])
+    print("Found", len(result[0]), "samples")
+    pprint(list(zip(*result))[:3])

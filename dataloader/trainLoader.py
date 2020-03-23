@@ -15,13 +15,14 @@ IMG_EXTENSIONS = [
     '.jpg', '.JPG', '.jpeg', '.JPEG',
     '.png', '.PNG', '.ppm', '.PPM', '.bmp', '.BMP',
 ]
-INSTICS = {"2011_09_26": [721.5377, 596.5593, 149.854],
-           "2011_09_28": [707.0493, 604.0814, 162.5066],
-           "2011_09_29": [718.3351, 600.3891, 159.5122],
-           "2011_09_30": [707.0912, 601.8873, 165.1104],
-           "2011_10_03": [718.856, 607.1928, 161.2157]
+INTRINSICS = {
+    "2011_09_26": (721.5377, 609.5593, 172.8540),
+    "2011_09_28": (707.0493, 604.0814, 180.5066),
+    "2011_09_29": (718.3351, 600.3891, 181.5122),
+    "2011_09_30": (707.0912, 601.8873, 183.1104),
+    "2011_10_03": (718.8560, 607.1928, 185.2157),
 }
-# INSTICS = {"NYU": [582.6245, 313.0448, 238.4439]}
+# INTRINSICS = {"NYU": (582.6245, 313.0448, 238.4439)}
 
 def is_image_file(filename):
     return any(filename.endswith(extension) for extension in IMG_EXTENSIONS)
@@ -60,7 +61,7 @@ class myImageFloder(data.Dataset):
         left_img = self.loader(left)
 
         index_str = self.left[index].split('/')[-4][0:10]
-        params_t = INSTICS[index_str]
+        params_t = INTRINSICS[index_str]
         params = np.ones((256,512,3),dtype=np.float32)
         params[:, :, 0] = params[:,:,0] * params_t[0]
         params[:, :, 1] = params[:, :, 1] * params_t[1]
