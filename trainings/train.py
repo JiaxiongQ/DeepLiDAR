@@ -33,7 +33,7 @@ torch.manual_seed(args.seed)
 if args.cuda:
     torch.cuda.manual_seed(args.seed)
 
-all_left_img,all_sparse,all_depth = lsn.dataloader(datapath)
+all_left_img, all_sparse, _, all_depth = lsn.dataloader(datapath)
 
 TrainImgLoader = torch.utils.data.DataLoader(
         DA.myImageFloder(all_left_img,all_sparse,all_depth, True),

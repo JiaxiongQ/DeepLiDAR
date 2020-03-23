@@ -11,7 +11,7 @@ import torch.utils.data
 from torch.autograd import Variable
 import torch.nn.functional as F
 import time
-from dataloader import nomalLoader as lsn
+from dataloader import dataLoader as lsn
 from dataloader import trainLoaderN as DA
 from submodels import *
 
@@ -48,7 +48,7 @@ all_left_img = []
 all_normal = []
 all_gts = []
 if args.model == 'normal':
-    all_left_img, all_normal, all_gts = lsn.dataloader(datapath)
+    all_left_img, all_normal, all_gts, _ = lsn.dataloader(datapath)
 
 
 print(len(all_left_img))
