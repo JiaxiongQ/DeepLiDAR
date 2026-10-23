@@ -111,7 +111,7 @@ def nomal_loss(pred, targetN,params,depthI,depthJ):
     predN_2[:, :, :, 2] = z2
 
     predN = torch.cross(predN_1, predN_2)
-    pred_n = F.normalize(predN)
+    pred_n = F.normalize(predN,-1)
     pred_n = pred_n.contiguous().view(-1, 3)
     target_n = targetN.contiguous().view(-1, 3)
 
